@@ -6,5 +6,6 @@ scalaVersion := "2.12.14"
 
 libraryDependencies += "net.coobird" % "thumbnailator" % "0.4.14"
 
-mainClass in assembly := some("ImageResizer")
+Compile / assembly / mainClass := Some("ImageResizer")
+Compile / run := Some("ImageResizer")
 assemblyJarName := "image-compressor.jar"

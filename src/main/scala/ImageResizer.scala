@@ -20,8 +20,9 @@ import java.io.File
  */
 object ImageResizer extends App {
 
-  if (args.length < 2) {
+  if (args.length != 2) {
     println("Usage: Provide a source and destination folder as e.g ./files ./files-resized")
+    System.exit(1)
   }
 
   val fileDir = new File(args(0))
