@@ -27,8 +27,7 @@ object ImageResizer extends App {
 
   val fileDir = new File(args(0))
   val fileDestDir = new File(args(1))
-
-  println("File dir " + fileDir)
+  val imageExensions = Set(".jpg", ".jpeg", ".png")
 
   val files = fileDir.listFiles()
 
@@ -39,11 +38,12 @@ object ImageResizer extends App {
   println("File(Original), Size KB(Original), Size KB(Compressed), Percentage Compression")
 
   files.foreach { f =>
-    println("Compressing file " + f.getName)
-    val compressedFiles = Thumbnails.of(f).size(1280, 720)
-      .outputQuality(1)
-      .outputFormat("jpg")
-      .asFiles(fileDestDir, Rename.NO_CHANGE)
-    println(s"${f.getName},${toKB(f.length())}, ${toKB(compressedFiles.get(0).length())}, ${100 - ((compressedFiles.get(0).length() * 100)/f.length())}")
+    if(imageExensions.exists(ext => f.getName.contains(ext))) {
+      val compressedFiles = Thumbnails.of(f).size(1280, 720)
+        .outputQuality(1)
+        .outputFormat("jpg")
+        .asFiles(fileDestDir, Rename.NO_CHANGE)
+      println(s"${f.getName},${toKB(f.length())}, ${toKB(compressedFiles.get(0).length())}, ${100 - ((compressedFiles.get(0).length() * 100) / f.length())}")
+    }
   }
 }
